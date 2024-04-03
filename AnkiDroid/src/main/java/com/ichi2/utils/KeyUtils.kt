@@ -18,13 +18,17 @@ package com.ichi2.utils
 import android.view.KeyEvent
 
 object KeyUtils {
-    fun isDigit(event: KeyEvent): Boolean {
+    private fun isDigit(event: KeyEvent): Boolean {
         val unicodeChar = event.getUnicodeChar(0)
-        return unicodeChar >= '0'.code && unicodeChar <= '9'.code
+        return unicodeChar in '0'.code..'9'.code
     }
 
-    fun getDigit(event: KeyEvent): Int {
+    fun getDigit(event: KeyEvent): Int? {
         val unicodeChar = event.getUnicodeChar(0)
-        return unicodeChar - '0'.code
+        return if (isDigit(event)) {
+            unicodeChar - '0'.code
+        } else {
+            null
+        }
     }
 }
